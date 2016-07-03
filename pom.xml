@@ -128,7 +128,7 @@
                      see gwt-maven-plugin documentation at codehaus.org -->
                 <configuration>
                     <modules>
-                        <module>cu.tissca.x901.wadl.WadlParser</module>
+                        <module>cu.tissca.x901.wad.WadlParser</module>
                     </modules>
                     <!-- Run tests using HtmlUnit -->
                     <mode>htmlunit</mode>
