@@ -10,7 +10,7 @@ import java.util.List;
  *
  * @author ariel.viera@gmail.com (Ariel Viera)
  */
-public class MethodElement implements WadlElement  {
+public class MethodElement extends AbstractWadlElement  {
 
     private String id;
     private String name;
@@ -51,6 +51,10 @@ public class MethodElement implements WadlElement  {
         return responseElement;
     }
 
+    public void setResponseElement(ResponseElement responseElement) {
+        this.responseElement = responseElement;
+    }
+
     @Override
     public void accept(Visitor visitor) {
         try {
@@ -64,4 +68,5 @@ public class MethodElement implements WadlElement  {
             visitor.endVisitMethodDescriptor(this);
         }
     }
+
 }

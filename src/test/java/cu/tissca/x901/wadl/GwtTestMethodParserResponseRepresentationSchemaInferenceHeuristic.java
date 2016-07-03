@@ -4,11 +4,19 @@ import com.google.gwt.junit.client.GWTTestCase;
 import com.google.gwt.xml.client.Element;
 import com.google.gwt.xml.client.XMLParser;
 import cu.tissca.commons.jsonschema.model.JsonObjectSchema;
+import cu.tissca.commons.jsonschema.model.JsonSchema;
 import cu.tissca.x901.wadl.extensions.ExtendedProperties;
 import cu.tissca.x901.wadl.extensions.JsonSchemaScanner;
 import cu.tissca.x901.wadl.model.RepresentationElement;
+import junit.framework.Assert;
+import org.hamcrest.CoreMatchers;
 import org.hamcrest.MatcherAssert;
+import org.junit.Assume;
 import org.junit.Test;
+
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
@@ -16,7 +24,41 @@ import static org.hamcrest.CoreMatchers.notNullValue;
 /**
  * @author ariel.viera@gmail.com (Ariel Viera)
  */
-public class GwtTestWadlParserResponseRepresentationSchemaInferenceHeuristic extends GWTTestCase {
+public class GwtTestMethodParserResponseRepresentationSchemaInferenceHeuristic extends GWTTestCase {
+
+    private static final String PARSED_SCHEMA = "{\n" +
+            "    \"id\": \"https://docs.atlassian.com/jira/REST/schema/worklog-changed-since#\",\n" +
+            "    \"title\": \"Worklog Changed Since\",\n" +
+            "    \"type\": \"object\",\n" +
+            "    \"properties\": {\n" +
+            "        \"values\": {\n" +
+            "            \"type\": \"array\",\n" +
+            "            \"items\": {\n" +
+            "                \"title\": \"Worklog Change\",\n" +
+            "                \"type\": \"object\",\n" +
+            "                \"properties\": {\n" +
+            "                    \"worklogId\": {\"type\": \"integer\"},\n" +
+            "                    \"updatedTime\": {\"type\": \"integer\"}\n" +
+            "                },\n" +
+            "                \"additionalProperties\": false\n" +
+            "            }\n" +
+            "        },\n" +
+            "        \"since\": {\"type\": \"integer\"},\n" +
+            "        \"until\": {\"type\": \"integer\"},\n" +
+            "        \"isLastPage\": {\"type\": \"boolean\"},\n" +
+            "        \"self\": {\n" +
+            "            \"type\": \"string\",\n" +
+            "            \"format\": \"uri\"\n" +
+            "        },\n" +
+            "        \"nextPage\": {\n" +
+            "            \"type\": \"string\",\n" +
+            "            \"format\": \"uri\"\n" +
+            "        }\n" +
+            "    },\n" +
+            "    \"additionalProperties\": false,\n" +
+            "    \"required\": [\"isLastPage\"]\n" +
+            "}";
+
     private static final String SAMPLE_REPRESENTATION =
             "<ns2:representation xmlns:ns2=\"http://wadl.dev.java.net/2009/02\"\n" +
                     "        mediaType=\"application/json\">\n" +
@@ -51,12 +93,26 @@ public class GwtTestWadlParserResponseRepresentationSchemaInferenceHeuristic ext
 
     @Test
     public void test_lookup_representation_schema(){
-        WadlParser parser = new WadlParser("ns2");
+        JsonSchemaScanner.LOGGER.setLevel(Level.OFF);
+        MethodParser parser = new MethodParser("ns2");
         Element documentElement = XMLParser.parse(SAMPLE_REPRESENTATION).getDocumentElement();
         RepresentationElement representationElement = parser.parseRepresentation(documentElement);
         JsonSchemaScanner.scanAndPrepareJsonSchemas(representationElement);
         JsonObjectSchema jsonObjectSchema = (JsonObjectSchema) representationElement.getExtendedProperties().get(ExtendedProperties.JSON_SCHEMA);
         MatcherAssert.assertThat(jsonObjectSchema, is(notNullValue()));
+    }
+
+    @Test
+    public void test_representation_schema_was_correctly_read(){
+        JsonSchemaScanner.LOGGER.setLevel(Level.OFF);
+        MethodParser parser = new MethodParser("ns2");
+        Element documentElement = XMLParser.parse(SAMPLE_REPRESENTATION).getDocumentElement();
+        RepresentationElement representationElement = parser.parseRepresentation(documentElement);
+        JsonSchemaScanner.scanAndPrepareJsonSchemas(representationElement);
+        JsonObjectSchema jsonObjectSchema = (JsonObjectSchema) representationElement.getExtendedProperties().get(ExtendedProperties.JSON_SCHEMA);
+//        Assume.assumeThat(jsonObjectSchema, is(notNullValue())) ;
+        Map<String, JsonSchema> properties = jsonObjectSchema.getProperties();
+        assertTrue(properties.containsKey("values"));
     }
 
     @Override

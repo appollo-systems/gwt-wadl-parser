@@ -4,7 +4,6 @@ import com.google.gwt.xml.client.Element;
 import com.google.gwt.xml.client.Node;
 import com.google.gwt.xml.client.NodeList;
 import com.google.gwt.xml.client.Text;
-import cu.tissca.commons.jsonschema.model.JsonObjectSchema;
 import cu.tissca.commons.jsonschema.model.JsonSchema;
 import cu.tissca.commons.jsonschema.parser.JsonSchemaParser;
 import cu.tissca.commons.jsonschema.parser.JsonSchemaParserException;
@@ -25,19 +24,31 @@ public class JsonSchemaScanner {
     public static void scanAndPrepareJsonSchemas(final WadlElement wadlElement) {
         wadlElement.accept(new VisitorAdapter() {
                                public RepresentationElement currentRepresentation;
+                               private boolean jsonSchemaFound;
 
                                @Override
                                public void visitRepresentation(RepresentationElement representationElement) {
                                    currentRepresentation = representationElement;
+                                   jsonSchemaFound = false;
                                }
 
                                @Override
-                               public void visitDocElement(DocElement docElement) {
-                                   if (currentRepresentation != null) {
-                                       lookForJSONTextNode(docElement.getElement(), new JsonSchemaConsumer() {
+                               public void visitDocElement(final DocElement docElement) {
+                                   if (currentRepresentation != null && !jsonSchemaFound) {
+                                       lookForTextNode(docElement.getElement(), new TextConsumer() {
                                            @Override
-                                           public void accept(JsonObjectSchema jsonObjectSchema) {
-                                               currentRepresentation.getExtendedProperties().put(ExtendedProperties.JSON_SCHEMA, jsonObjectSchema);
+                                           public void accept(Text text) {
+                                               try {
+                                                   // Fixes Bugs in JSON from JIRA wadl
+                                                   String corrected = JsonFixer.fixJson(text.getData());
+                                                   JsonSchemaParser parser = new JsonSchemaParser();
+                                                   JsonSchema jsonSchema = parser.parse(corrected);
+                                                   jsonSchemaFound = true; // skip the rest
+                                                   currentRepresentation.getExtendedProperties().put(ExtendedProperties.JSON_SCHEMA, jsonSchema);
+                                               } catch (JsonSchemaParserException e) {
+                                                   LOGGER.info("Could not parse json schema in text element "+text.toString());
+                                                   docElement.addError(e.toString());
+                                               }
                                            }
                                        });
                                    }
@@ -51,32 +62,22 @@ public class JsonSchemaScanner {
         );
     }
 
-    private interface JsonSchemaConsumer {
-        void accept(JsonObjectSchema jsonObjectSchema);
+
+    private interface TextConsumer {
+        void accept(Text text);
     }
 
-    static void lookForJSONTextNode(Element element, JsonSchemaConsumer consumer) {
+    static void lookForTextNode(Element element, TextConsumer consumer) {
         NodeList childNodes = element.getChildNodes();
         for (int i = 0; i < childNodes.getLength(); i++) {
             Node item = childNodes.item(i);
             switch (item.getNodeType()) {
                 case Node.TEXT_NODE:
                     Text text = (Text) item;
-                    try {
-                        JsonSchemaParser parser = new JsonSchemaParser();
-                        JsonSchema jsonSchema = parser.parse(text.getData());
-                        JsonObjectSchema result = jsonSchema.asObjectSchema();
-                        if (result != null) { // found
-                            consumer.accept(result);
-                        } else {
-                            LOGGER.info("JsonSchema was found but was not convertible to JsonObjectSchema");
-                        }
-                    } catch (JsonSchemaParserException e) {
-                        LOGGER.info("Could not parse json schema in text element "+text.toString());
-                    }
+                    consumer.accept(text);
                     break;
                 case Node.ELEMENT_NODE:
-                    lookForJSONTextNode((Element) item, consumer);
+                    lookForTextNode((Element) item, consumer);
                     break;
                 default:
                     break;

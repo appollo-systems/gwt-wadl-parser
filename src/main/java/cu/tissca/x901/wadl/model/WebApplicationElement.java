@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * @author ariel.viera@gmail.com (Ariel Viera)
  */
-public class WebApplicationElement implements WadlElement {
+public class WebApplicationElement extends AbstractWadlElement {
 
     private List<ResourceElement> resources = new ArrayList<>();
 

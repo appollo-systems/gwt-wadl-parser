@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * @author ariel.viera@gmail.com (Ariel Viera)
  */
-public class RequestElement implements WadlElement {
+public class RequestElement extends AbstractWadlElement {
     private List<ParamElement> params;
     private List<DocElement> docs;
     private RepresentationElement representation;

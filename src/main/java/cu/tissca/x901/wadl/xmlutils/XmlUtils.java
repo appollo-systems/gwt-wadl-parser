@@ -1,23 +1,15 @@
 package cu.tissca.x901.wadl.xmlutils;
 
-import com.google.gwt.xml.client.Node;
+import com.google.gwt.xml.client.Element;
 import com.google.gwt.xml.client.NodeList;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author ariel.viera@gmail.com (Ariel Viera)
  */
-public class XmlUtilsImpl {
+public class XmlUtils {
+    private static XmlUtilsImpl instance = XmlUtilsImpl.getInstance();
 
-    private static XmlUtilsImpl impl = new XmlUtilsImpl();
-
-    public static XmlUtilsImpl getInstance(){
-        return impl;
-    }
-
-    public NodeList getChildElementsByTagName( String tagName){
-        List<Node> nodes = new ArrayList<>();
+    public static NodeList getChildElementsByTagName(Element node, String tagName) {
+        return instance.getChildElementsByTagName(node, tagName);
     }
 }

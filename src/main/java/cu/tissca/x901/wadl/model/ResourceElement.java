@@ -9,10 +9,11 @@ import java.util.List;
 /**
  * @author ariel.viera@gmail.com (Ariel Viera)
  */
-public class ResourceElement implements WadlElement {
+public class ResourceElement extends AbstractWadlElement {
     private String base;
     private List<ResourceElement> resources = new ArrayList<>();
     private List<MethodElement> methods = new ArrayList<>();
+    private List<Object> errors = new ArrayList<>();
 
     public void setBase(String base) {
         this.base = base;
@@ -49,4 +50,5 @@ public class ResourceElement implements WadlElement {
     private void checkConsistency() {
         Verify.verify(!resources.contains(this));
     }
+
 }

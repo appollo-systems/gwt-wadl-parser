@@ -2,14 +2,15 @@ package cu.tissca.x901.wadl.model;
 
 import cu.tissca.x901.wadl.Visitor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * @author ariel.viera@gmail.com (Ariel Viera)
  */
-public class ResponseElement implements WadlElement {
+public class ResponseElement extends AbstractWadlElement {
     private RepresentationElement representation;
-    private List<DocElement> docs;
+    private List<DocElement> docs = new ArrayList<>();
 
     public RepresentationElement getRepresentation() {
         return representation;

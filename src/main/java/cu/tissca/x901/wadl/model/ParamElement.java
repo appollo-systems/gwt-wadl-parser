@@ -5,7 +5,7 @@ import cu.tissca.x901.wadl.Visitor;
 /**
  * @author ariel.viera@gmail.com (Ariel Viera)
  */
-public class ParamElement implements WadlElement {
+public class ParamElement extends AbstractWadlElement {
     @Override
     public void accept(Visitor visitor){
         try {

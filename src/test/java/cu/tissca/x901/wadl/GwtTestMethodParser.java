@@ -10,7 +10,7 @@ import org.junit.Test;
 /**
  * Created by avd on 2016-06-17.
  */
-public class GwtTestWadlParser extends GWTTestCase {
+public class GwtTestMethodParser extends GWTTestCase {
 
     private static String SAMPLE_METHOD =
             "                <ns2:method\n" +
@@ -96,8 +96,8 @@ public class GwtTestWadlParser extends GWTTestCase {
     }
 
     @Test
-    public void test_parseMethod_reads_doc() {
-        WadlParser parser = new WadlParser("ns2");
+    public void test_parseMethod_reads_doc() throws MalformedWadlException {
+        MethodParser parser = new MethodParser("ns2");
         Document document = XMLParser.parse(SAMPLE_METHOD);
         MethodElement method = parser.parseMethod(document.getDocumentElement());
         assertEquals(method.getId(), "getIdsOfWorklogsModifiedSince");
@@ -106,16 +106,16 @@ public class GwtTestWadlParser extends GWTTestCase {
     }
 
     @Test
-    public void test_parseMethod_reads_request() {
-        WadlParser parser = new WadlParser("ns2");
+    public void test_parseMethod_reads_request() throws MalformedWadlException {
+        MethodParser parser = new MethodParser("ns2");
         Document document = XMLParser.parse(SAMPLE_METHOD);
         MethodElement method = parser.parseMethod(document.getDocumentElement());
         assertNotNull(method.getRequestDescriptor());
     }
 
     @Test
-    public static void test_parseMethod_reads_response() {
-        WadlParser parser = new WadlParser("ns2");
+    public static void test_parseMethod_reads_response() throws MalformedWadlException {
+        MethodParser parser = new MethodParser("ns2");
         Document document = XMLParser.parse(SAMPLE_METHOD);
         MethodElement method = parser.parseMethod(document.getDocumentElement());
         assertNotNull(method.getResponseElement());

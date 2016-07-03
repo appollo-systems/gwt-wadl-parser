@@ -1,16 +1,16 @@
 package cu.tissca.x901.wadl;
 
 import com.google.gwt.junit.client.GWTTestCase;
+import com.google.gwt.xml.client.Document;
 import com.google.gwt.xml.client.Element;
 import com.google.gwt.xml.client.XMLParser;
+import cu.tissca.x901.wadl.model.ResponseElement;
 import org.junit.Test;
 
 /**
  * @author ariel.viera@gmail.com (Ariel Viera)
  */
-public class GwtTestWadlParserResponse extends GWTTestCase {
-
-
+public class GwtTestMethodParserResponse extends GWTTestCase {
 
     static String SAMPLE_RESPONSE = "<ns2:response\n" +
             "        status=\"200\">\n" +
@@ -60,9 +60,13 @@ public class GwtTestWadlParserResponse extends GWTTestCase {
         throw new RuntimeException("not implemented");
     }
 
+
+
     @Test
     public void test_response_representation() {
-        throw new RuntimeException("not implemented");
+        Document responseDocument = XMLParser.parse(SAMPLE_RESPONSE);
+        MethodParser wadlParser = new MethodParser("ns2");
+        ResponseElement responseElement = wadlParser.parseResponse(responseDocument.getDocumentElement());
     }
 
     @Test

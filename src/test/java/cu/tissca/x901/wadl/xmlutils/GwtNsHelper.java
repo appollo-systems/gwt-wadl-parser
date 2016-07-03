@@ -1,7 +1,6 @@
-package cu.tissca.x901.wadl;
+package cu.tissca.x901.wadl.xmlutils;
 
 import com.google.gwt.junit.client.GWTTestCase;
-import cu.tissca.x901.wadl.xmlutils.NsHelper;
 import org.junit.Test;
 
 /**
