@@ -5,8 +5,8 @@ import com.google.gwt.xml.client.Document;
 import com.google.gwt.xml.client.Element;
 import com.google.gwt.xml.client.NodeList;
 import com.google.gwt.xml.client.XMLParser;
-import cu.tissca.x901.wad.model.ResourceElement;
-import cu.tissca.x901.wad.model.WebApplicationElement;
+import cu.tissca.x901.wad.model.ResourceDescriptor;
+import cu.tissca.x901.wad.model.WebApplicationDescriptor;
 import cu.tissca.x901.wad.xmlutils.NsHelper;
 
 /**
@@ -24,7 +24,7 @@ public class WadlParser extends AbstractParser {
         this.methodParser = new MethodParser(wadlPrefix);
     }
 
-    public static WebApplicationElement parse(String xml) throws MalformedWadlException {
+    public static WebApplicationDescriptor parse(String xml) throws MalformedWadlException {
         Document document = XMLParser.parse(xml);
         String wadlPrefix = null;
         if(NsHelper.hasNamespaces(document.getDocumentElement())) {
@@ -36,8 +36,8 @@ public class WadlParser extends AbstractParser {
     }
 
     @Lenient
-    private WebApplicationElement parseApplication(Element documentElement) throws MalformedWadlException {
-        WebApplicationElement result = new WebApplicationElement();
+    private WebApplicationDescriptor parseApplication(Element documentElement) throws MalformedWadlException {
+        WebApplicationDescriptor result = new WebApplicationDescriptor();
         Verify.verify(false, "Should not use getElementsByTagName because it's recursive");
         NodeList resourcessNodeList = documentElement.getElementsByTagName(tagName("resources"));
         if(resourcessNodeList.getLength()==1){
@@ -59,9 +59,9 @@ public class WadlParser extends AbstractParser {
     }
 
     @Lenient
-    private ResourceElement parseResource(Element resourceNode) {
+    private ResourceDescriptor parseResource(Element resourceNode) {
         assert resourceNode instanceof Element;
-        ResourceElement result = new ResourceElement();
+        ResourceDescriptor result = new ResourceDescriptor();
         String base = resourceNode.getAttribute("base");
         NodeList resourcesNodeList = resourceNode.getElementsByTagName(tagName("resource"));
         for(int i=0;i<resourcesNodeList.getLength();i++) {

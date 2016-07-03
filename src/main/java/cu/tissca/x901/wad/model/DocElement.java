@@ -13,7 +13,7 @@ import java.util.Map;
  *
  * @author ariel.viera@gmail.com (Ariel Viera)
  */
-public class DocElement implements WadlElement, HasExtendedProperties, HasErrorAnnotations {
+public class DocElement implements Descriptor, HasExtendedProperties, HasErrorAnnotations {
     private Element element;
 
 

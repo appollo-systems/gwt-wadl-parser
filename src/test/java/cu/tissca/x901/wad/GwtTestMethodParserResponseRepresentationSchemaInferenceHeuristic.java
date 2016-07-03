@@ -7,7 +7,7 @@ import cu.tissca.commons.jsonschema.model.JsonObjectSchema;
 import cu.tissca.commons.jsonschema.model.JsonSchema;
 import cu.tissca.x901.wad.extensions.ExtendedProperties;
 import cu.tissca.x901.wad.extensions.JsonSchemaScanner;
-import cu.tissca.x901.wad.model.RepresentationElement;
+import cu.tissca.x901.wad.model.RepresentationDescriptor;
 import org.hamcrest.MatcherAssert;
 import org.junit.Test;
 
@@ -92,9 +92,9 @@ public class GwtTestMethodParserResponseRepresentationSchemaInferenceHeuristic e
         JsonSchemaScanner.LOGGER.setLevel(Level.OFF);
         MethodParser parser = new MethodParser("ns2");
         Element documentElement = XMLParser.parse(SAMPLE_REPRESENTATION).getDocumentElement();
-        RepresentationElement representationElement = parser.parseRepresentation(documentElement);
-        JsonSchemaScanner.scanAndPrepareJsonSchemas(representationElement);
-        JsonObjectSchema jsonObjectSchema = (JsonObjectSchema) representationElement.getExtendedProperties().get(ExtendedProperties.JSON_SCHEMA);
+        RepresentationDescriptor representationDescriptor = parser.parseRepresentation(documentElement);
+        JsonSchemaScanner.scanAndPrepareJsonSchemas(representationDescriptor);
+        JsonObjectSchema jsonObjectSchema = (JsonObjectSchema) representationDescriptor.getExtendedProperties().get(ExtendedProperties.JSON_SCHEMA);
         MatcherAssert.assertThat(jsonObjectSchema, is(notNullValue()));
     }
 
@@ -103,9 +103,9 @@ public class GwtTestMethodParserResponseRepresentationSchemaInferenceHeuristic e
         JsonSchemaScanner.LOGGER.setLevel(Level.OFF);
         MethodParser parser = new MethodParser("ns2");
         Element documentElement = XMLParser.parse(SAMPLE_REPRESENTATION).getDocumentElement();
-        RepresentationElement representationElement = parser.parseRepresentation(documentElement);
-        JsonSchemaScanner.scanAndPrepareJsonSchemas(representationElement);
-        JsonObjectSchema jsonObjectSchema = (JsonObjectSchema) representationElement.getExtendedProperties().get(ExtendedProperties.JSON_SCHEMA);
+        RepresentationDescriptor representationDescriptor = parser.parseRepresentation(documentElement);
+        JsonSchemaScanner.scanAndPrepareJsonSchemas(representationDescriptor);
+        JsonObjectSchema jsonObjectSchema = (JsonObjectSchema) representationDescriptor.getExtendedProperties().get(ExtendedProperties.JSON_SCHEMA);
 //        Assume.assumeThat(jsonObjectSchema, is(notNullValue())) ;
         Map<String, JsonSchema> properties = jsonObjectSchema.getProperties();
         assertTrue(properties.containsKey("values"));
@@ -113,6 +113,6 @@ public class GwtTestMethodParserResponseRepresentationSchemaInferenceHeuristic e
 
     @Override
     public String getModuleName() {
-        return "cu.tissca.x901.wadl.WadlParserTest";
+        return "cu.tissca.x901.wad.WadlParserTest";
     }
 }

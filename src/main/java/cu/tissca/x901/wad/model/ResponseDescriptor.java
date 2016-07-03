@@ -8,15 +8,15 @@ import java.util.List;
 /**
  * @author ariel.viera@gmail.com (Ariel Viera)
  */
-public class ResponseElement extends AbstractWadlElement {
-    private RepresentationElement representation;
+public class ResponseDescriptor extends AbstractDescriptor {
+    private RepresentationDescriptor representation;
     private List<DocElement> docs = new ArrayList<>();
 
-    public RepresentationElement getRepresentation() {
+    public RepresentationDescriptor getRepresentation() {
         return representation;
     }
 
-    public void setRepresentation(RepresentationElement representation) {
+    public void setRepresentation(RepresentationDescriptor representation) {
         this.representation = representation;
     }
 

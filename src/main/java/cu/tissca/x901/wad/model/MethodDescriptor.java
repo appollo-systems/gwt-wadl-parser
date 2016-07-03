@@ -10,13 +10,13 @@ import java.util.List;
  *
  * @author ariel.viera@gmail.com (Ariel Viera)
  */
-public class MethodElement extends AbstractWadlElement  {
+public class MethodDescriptor extends AbstractDescriptor {
 
     private String id;
     private String name;
     private List<DocElement> docs = new ArrayList<>();
-    private RequestElement requestDescriptor;
-    private ResponseElement responseElement;
+    private RequestDescriptor requestDescriptor;
+    private ResponseDescriptor responseDescriptor;
 
     public void setId(String id) {
         this.id = id;
@@ -39,20 +39,20 @@ public class MethodElement extends AbstractWadlElement  {
     }
 
 
-    public RequestElement getRequestDescriptor() {
+    public RequestDescriptor getRequestDescriptor() {
         return requestDescriptor;
     }
 
-    public void setRequestDescriptor(RequestElement requestDescriptor) {
+    public void setRequestDescriptor(RequestDescriptor requestDescriptor) {
         this.requestDescriptor = requestDescriptor;
     }
 
-    public ResponseElement getResponseElement() {
-        return responseElement;
+    public ResponseDescriptor getResponseDescriptor() {
+        return responseDescriptor;
     }
 
-    public void setResponseElement(ResponseElement responseElement) {
-        this.responseElement = responseElement;
+    public void setResponseDescriptor(ResponseDescriptor responseDescriptor) {
+        this.responseDescriptor = responseDescriptor;
     }
 
     @Override
@@ -60,7 +60,7 @@ public class MethodElement extends AbstractWadlElement  {
         try {
             visitor.visitMethodDescriptor(this);
             requestDescriptor.accept(visitor);
-            responseElement.accept(visitor);
+            responseDescriptor.accept(visitor);
             for(DocElement doc:docs){
                 doc.accept(visitor);
             }

@@ -9,10 +9,10 @@ import java.util.List;
 /**
  * @author ariel.viera@gmail.com (Ariel Viera)
  */
-public class ResourceElement extends AbstractWadlElement {
+public class ResourceDescriptor extends AbstractDescriptor {
     private String base;
-    private List<ResourceElement> resources = new ArrayList<>();
-    private List<MethodElement> methods = new ArrayList<>();
+    private List<ResourceDescriptor> resources = new ArrayList<>();
+    private List<MethodDescriptor> methods = new ArrayList<>();
     private List<Object> errors = new ArrayList<>();
 
     public void setBase(String base) {
@@ -23,11 +23,11 @@ public class ResourceElement extends AbstractWadlElement {
         return base;
     }
 
-    public void addResource(ResourceElement resource) {
+    public void addResource(ResourceDescriptor resource) {
         this.resources.add(resource);
     }
 
-    public void addMethod(MethodElement method) {
+    public void addMethod(MethodDescriptor method) {
         this.methods.add(method);
     }
 
@@ -36,11 +36,11 @@ public class ResourceElement extends AbstractWadlElement {
         checkConsistency();
         try {
             visitor.visitResourceDescriptor(this);
-            for(ResourceElement resourceElement :resources){
-                resourceElement.accept(visitor);
+            for(ResourceDescriptor resourceDescriptor :resources){
+                resourceDescriptor.accept(visitor);
             }
-            for(MethodElement methodElement :methods){
-                methodElement.accept(visitor);
+            for(MethodDescriptor methodDescriptor :methods){
+                methodDescriptor.accept(visitor);
             }
         } finally {
             visitor.endVisitResourceDescriptor(this);

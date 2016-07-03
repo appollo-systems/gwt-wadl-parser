@@ -8,11 +8,11 @@ import java.util.List;
 /**
  * @author ariel.viera@gmail.com (Ariel Viera)
  */
-public class WebApplicationElement extends AbstractWadlElement {
+public class WebApplicationDescriptor extends AbstractDescriptor {
 
-    private List<ResourceElement> resources = new ArrayList<>();
+    private List<ResourceDescriptor> resources = new ArrayList<>();
 
-    public void addResource(ResourceElement resource) {
+    public void addResource(ResourceDescriptor resource) {
         this.resources.add(resource);
     }
 
@@ -20,8 +20,8 @@ public class WebApplicationElement extends AbstractWadlElement {
     public void accept(Visitor visitor){
         try {
             visitor.visitWebApplicationDescriptor(this);
-            for (ResourceElement resourceElement : resources) {
-                resourceElement.accept(visitor);
+            for (ResourceDescriptor resourceDescriptor : resources) {
+                resourceDescriptor.accept(visitor);
             }
         }finally {
             visitor.endVisitWebApplicationDescriptor();

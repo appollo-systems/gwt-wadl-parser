@@ -8,7 +8,7 @@ import java.util.Map;
 /**
  * @author ariel.viera@gmail.com (Ariel Viera)
  */
-public abstract class AbstractWadlElement implements WadlElement, HasErrorAnnotations {
+public abstract class AbstractDescriptor implements Descriptor, HasErrorAnnotations {
 
     private List<Object> errors = new ArrayList<>();
     private Map<String, Object> extendedProperties = new HashMap<>();

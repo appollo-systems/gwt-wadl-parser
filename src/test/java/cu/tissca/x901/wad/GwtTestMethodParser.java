@@ -3,7 +3,7 @@ package cu.tissca.x901.wad;
 import com.google.gwt.junit.client.GWTTestCase;
 import com.google.gwt.xml.client.Document;
 import com.google.gwt.xml.client.XMLParser;
-import cu.tissca.x901.wad.model.MethodElement;
+import cu.tissca.x901.wad.model.MethodDescriptor;
 import cu.tissca.x901.wad.xmlutils.NsHelper;
 import org.junit.Test;
 
@@ -99,7 +99,7 @@ public class GwtTestMethodParser extends GWTTestCase {
     public void test_parseMethod_reads_doc() throws MalformedWadlException {
         MethodParser parser = new MethodParser("ns2");
         Document document = XMLParser.parse(SAMPLE_METHOD);
-        MethodElement method = parser.parseMethod(document.getDocumentElement());
+        MethodDescriptor method = parser.parseMethod(document.getDocumentElement());
         assertEquals(method.getId(), "getIdsOfWorklogsModifiedSince");
         assertEquals(method.getName(), "GET");
         method.getDocs().get(0).toString().contains("Returns worklogs");
@@ -109,7 +109,7 @@ public class GwtTestMethodParser extends GWTTestCase {
     public void test_parseMethod_reads_request() throws MalformedWadlException {
         MethodParser parser = new MethodParser("ns2");
         Document document = XMLParser.parse(SAMPLE_METHOD);
-        MethodElement method = parser.parseMethod(document.getDocumentElement());
+        MethodDescriptor method = parser.parseMethod(document.getDocumentElement());
         assertNotNull(method.getRequestDescriptor());
     }
 
@@ -117,8 +117,8 @@ public class GwtTestMethodParser extends GWTTestCase {
     public static void test_parseMethod_reads_response() throws MalformedWadlException {
         MethodParser parser = new MethodParser("ns2");
         Document document = XMLParser.parse(SAMPLE_METHOD);
-        MethodElement method = parser.parseMethod(document.getDocumentElement());
-        assertNotNull(method.getResponseElement());
+        MethodDescriptor method = parser.parseMethod(document.getDocumentElement());
+        assertNotNull(method.getResponseDescriptor());
     }
 
     @Test
@@ -133,6 +133,6 @@ public class GwtTestMethodParser extends GWTTestCase {
 
     @Override
     public String getModuleName() {
-        return "cu.tissca.x901.wadl.WadlParser";
+        return "cu.tissca.x901.wad.WadlParser";
     }
 }

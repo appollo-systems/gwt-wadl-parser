@@ -27,8 +27,8 @@ public class MethodParser extends AbstractParser {
     }
 
     @Strict
-    MethodElement parseMethod(Element methodNode) throws MalformedWadlException {
-        MethodElement result = new MethodElement();
+    MethodDescriptor parseMethod(Element methodNode) throws MalformedWadlException {
+        MethodDescriptor result = new MethodDescriptor();
         result.setId(methodNode.getAttribute("id"));
         result.setName(methodNode.getAttribute("name"));
         NodeList requestList = methodNode.getElementsByTagName(tagName("request"));
@@ -38,11 +38,11 @@ public class MethodParser extends AbstractParser {
         NodeList responseList = methodNode.getElementsByTagName(tagName("response"));
         verifyOrThrow(responseList.getLength() == 1, new MalformedWadlException("Method element must have exactly one child response element"));
         Element item2 = (Element)requestList.item(0);
-        result.setResponseElement(parseResponse(item2));
+        result.setResponseDescriptor(parseResponse(item2));
         return result;
     }
 
-    private RequestElement parseRequest(Element item1) {
+    private RequestDescriptor parseRequest(Element item1) {
         return null;
     }
 
@@ -52,17 +52,17 @@ public class MethodParser extends AbstractParser {
      * @return
      */
     @Strict
-    public RepresentationElement parseRepresentation(Element rootElement) {
-        RepresentationElement representationElement = new RepresentationElement();
-        representationElement.setMediaType(rootElement.getAttribute("mediaType"));
+    public RepresentationDescriptor parseRepresentation(Element rootElement) {
+        RepresentationDescriptor representationDescriptor = new RepresentationDescriptor();
+        representationDescriptor.setMediaType(rootElement.getAttribute("mediaType"));
         NodeList doc = XmlUtils.getChildElementsByTagName(rootElement, tagName("doc"));
         List<DocElement> list = new ArrayList<>();
         for(int i=0;i<doc.getLength();i++){
             Element docNode = (Element) doc.item(i);
             list.add(parseDocElement(docNode));
         }
-        representationElement.setDocs(list);
-        return representationElement;
+        representationDescriptor.setDocs(list);
+        return representationDescriptor;
     }
 
     /**
@@ -71,8 +71,8 @@ public class MethodParser extends AbstractParser {
      * @return
      */
     @Strict
-    public ResponseElement parseResponse(Element rootElement) {
-        ResponseElement result = new ResponseElement();
+    public ResponseDescriptor parseResponse(Element rootElement) {
+        ResponseDescriptor result = new ResponseDescriptor();
         NodeList doc = XmlUtils.getChildElementsByTagName(rootElement, tagName("doc"));
         for(int i=0;i<doc.getLength();i++){
             Element item = (Element) doc.item(i);

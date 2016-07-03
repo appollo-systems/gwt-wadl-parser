@@ -7,35 +7,35 @@ import cu.tissca.x901.wad.model.*;
  */
 public interface Visitor {
 
-    void visitWebApplicationDescriptor(WebApplicationElement webApplicationElement);
+    void visitWebApplicationDescriptor(WebApplicationDescriptor webApplicationDescriptor);
 
     void endVisitWebApplicationDescriptor();
 
-    void visitResourceDescriptor(ResourceElement resourceElement);
+    void visitResourceDescriptor(ResourceDescriptor resourceDescriptor);
 
-    void endVisitResourceDescriptor(ResourceElement resourceElement);
+    void endVisitResourceDescriptor(ResourceDescriptor resourceDescriptor);
 
-    void visitMethodDescriptor(MethodElement methodElement);
+    void visitMethodDescriptor(MethodDescriptor methodDescriptor);
 
-    void endVisitMethodDescriptor(MethodElement methodElement);
+    void endVisitMethodDescriptor(MethodDescriptor methodDescriptor);
 
-    void visitRequestDescriptor(RequestElement requestDescriptor);
+    void visitRequestDescriptor(RequestDescriptor requestDescriptor);
 
-    void endVisitRequestDescriptor(RequestElement requestDescriptor);
+    void endVisitRequestDescriptor(RequestDescriptor requestDescriptor);
 
     void visitDocElement(DocElement docElement);
 
     void endVisitDocElement(DocElement docElement);
 
-    void visitParamDescriptor(ParamElement paramElement);
+    void visitParamDescriptor(ParamDescriptor paramDescriptor);
 
-    void endVisitParamDescriptor(ParamElement paramElement);
+    void endVisitParamDescriptor(ParamDescriptor paramDescriptor);
 
-    void visitResponseDescriptor(ResponseElement responseElement);
+    void visitResponseDescriptor(ResponseDescriptor responseDescriptor);
 
-    void endVisitResponseDescriptor(ResponseElement responseElement);
+    void endVisitResponseDescriptor(ResponseDescriptor responseDescriptor);
 
-    void visitRepresentation(RepresentationElement representationElement);
+    void visitRepresentation(RepresentationDescriptor representationDescriptor);
 
-    void endVisitRepresentation(RepresentationElement representationElement);
+    void endVisitRepresentation(RepresentationDescriptor representationDescriptor);
 }

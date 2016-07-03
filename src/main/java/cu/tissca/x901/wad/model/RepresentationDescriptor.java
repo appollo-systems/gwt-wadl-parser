@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * @author ariel.viera@gmail.com (Ariel Viera)
  */
-public class RepresentationElement extends AbstractWadlElement {
+public class RepresentationDescriptor extends AbstractDescriptor {
 
     private List<DocElement> docs = new ArrayList<>();
 

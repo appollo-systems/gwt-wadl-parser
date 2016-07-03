@@ -7,16 +7,16 @@ import java.util.List;
 /**
  * @author ariel.viera@gmail.com (Ariel Viera)
  */
-public class RequestElement extends AbstractWadlElement {
-    private List<ParamElement> params;
+public class RequestDescriptor extends AbstractDescriptor {
+    private List<ParamDescriptor> params;
     private List<DocElement> docs;
-    private RepresentationElement representation;
+    private RepresentationDescriptor representation;
 
-    public RepresentationElement getRepresentation() {
+    public RepresentationDescriptor getRepresentation() {
         return representation;
     }
 
-    public void setRepresentation(RepresentationElement representation) {
+    public void setRepresentation(RepresentationDescriptor representation) {
         this.representation = representation;
     }
 
@@ -28,11 +28,11 @@ public class RequestElement extends AbstractWadlElement {
         this.docs = docs;
     }
 
-    public List<ParamElement> getParams() {
+    public List<ParamDescriptor> getParams() {
         return params;
     }
 
-    public void setParams(List<ParamElement> params) {
+    public void setParams(List<ParamDescriptor> params) {
         this.params = params;
     }
 
@@ -40,8 +40,8 @@ public class RequestElement extends AbstractWadlElement {
     public void accept(Visitor visitor) {
         try {
             visitor.visitRequestDescriptor(this);
-            for(ParamElement paramElement : params){
-                paramElement.accept(visitor);
+            for(ParamDescriptor paramDescriptor : params){
+                paramDescriptor.accept(visitor);
             }
             representation.accept(visitor);
             for(DocElement doc:docs){

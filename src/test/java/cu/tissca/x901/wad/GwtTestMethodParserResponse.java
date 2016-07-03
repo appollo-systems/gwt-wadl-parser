@@ -4,7 +4,7 @@ import com.google.gwt.junit.client.GWTTestCase;
 import com.google.gwt.xml.client.Document;
 import com.google.gwt.xml.client.Element;
 import com.google.gwt.xml.client.XMLParser;
-import cu.tissca.x901.wad.model.ResponseElement;
+import cu.tissca.x901.wad.model.ResponseDescriptor;
 import org.junit.Test;
 
 /**
@@ -66,7 +66,7 @@ public class GwtTestMethodParserResponse extends GWTTestCase {
     public void test_response_representation() {
         Document responseDocument = XMLParser.parse(SAMPLE_RESPONSE);
         MethodParser wadlParser = new MethodParser("ns2");
-        ResponseElement responseElement = wadlParser.parseResponse(responseDocument.getDocumentElement());
+        ResponseDescriptor responseDescriptor = wadlParser.parseResponse(responseDocument.getDocumentElement());
     }
 
     @Test

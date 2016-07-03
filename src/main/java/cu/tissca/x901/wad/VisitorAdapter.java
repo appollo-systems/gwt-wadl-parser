@@ -10,28 +10,28 @@ import cu.tissca.x901.wad.model.*;
  */
 public class VisitorAdapter implements Visitor {
     @Override
-    public void visitWebApplicationDescriptor(WebApplicationElement webApplicationElement) {}
+    public void visitWebApplicationDescriptor(WebApplicationDescriptor webApplicationDescriptor) {}
 
     @Override
     public void endVisitWebApplicationDescriptor() {}
 
     @Override
-    public void visitResourceDescriptor(ResourceElement resourceElement) {}
+    public void visitResourceDescriptor(ResourceDescriptor resourceDescriptor) {}
 
     @Override
-    public void endVisitResourceDescriptor(ResourceElement resourceElement) {}
+    public void endVisitResourceDescriptor(ResourceDescriptor resourceDescriptor) {}
 
     @Override
-    public void visitMethodDescriptor(MethodElement methodElement) {}
+    public void visitMethodDescriptor(MethodDescriptor methodDescriptor) {}
 
     @Override
-    public void endVisitMethodDescriptor(MethodElement methodElement) {}
+    public void endVisitMethodDescriptor(MethodDescriptor methodDescriptor) {}
 
     @Override
-    public void visitRequestDescriptor(RequestElement requestDescriptor) {}
+    public void visitRequestDescriptor(RequestDescriptor requestDescriptor) {}
 
     @Override
-    public void endVisitRequestDescriptor(RequestElement requestDescriptor) {}
+    public void endVisitRequestDescriptor(RequestDescriptor requestDescriptor) {}
 
     @Override
     public void visitDocElement(DocElement docElement) {}
@@ -40,20 +40,20 @@ public class VisitorAdapter implements Visitor {
     public void endVisitDocElement(DocElement docElement) {}
 
     @Override
-    public void visitParamDescriptor(ParamElement paramElement) {}
+    public void visitParamDescriptor(ParamDescriptor paramDescriptor) {}
 
     @Override
-    public void endVisitParamDescriptor(ParamElement paramElement) {}
+    public void endVisitParamDescriptor(ParamDescriptor paramDescriptor) {}
 
     @Override
-    public void visitResponseDescriptor(ResponseElement responseElement) {}
+    public void visitResponseDescriptor(ResponseDescriptor responseDescriptor) {}
 
     @Override
-    public void endVisitResponseDescriptor(ResponseElement responseElement) {}
+    public void endVisitResponseDescriptor(ResponseDescriptor responseDescriptor) {}
 
     @Override
-    public void visitRepresentation(RepresentationElement representationElement) {}
+    public void visitRepresentation(RepresentationDescriptor representationDescriptor) {}
 
     @Override
-    public void endVisitRepresentation(RepresentationElement representationElement) {}
+    public void endVisitRepresentation(RepresentationDescriptor representationDescriptor) {}
 }

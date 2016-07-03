@@ -9,8 +9,8 @@ import cu.tissca.commons.jsonschema.parser.JsonSchemaParser;
 import cu.tissca.commons.jsonschema.parser.JsonSchemaParserException;
 import cu.tissca.x901.wad.VisitorAdapter;
 import cu.tissca.x901.wad.model.DocElement;
-import cu.tissca.x901.wad.model.RepresentationElement;
-import cu.tissca.x901.wad.model.WadlElement;
+import cu.tissca.x901.wad.model.RepresentationDescriptor;
+import cu.tissca.x901.wad.model.Descriptor;
 
 import java.util.logging.Logger;
 
@@ -21,14 +21,14 @@ public class JsonSchemaScanner {
 
     public static final Logger LOGGER = Logger.getLogger(JsonSchemaScanner.class.getName());
 
-    public static void scanAndPrepareJsonSchemas(final WadlElement wadlElement) {
-        wadlElement.accept(new VisitorAdapter() {
-                               public RepresentationElement currentRepresentation;
+    public static void scanAndPrepareJsonSchemas(final Descriptor descriptor) {
+        descriptor.accept(new VisitorAdapter() {
+                               public RepresentationDescriptor currentRepresentation;
                                private boolean jsonSchemaFound;
 
                                @Override
-                               public void visitRepresentation(RepresentationElement representationElement) {
-                                   currentRepresentation = representationElement;
+                               public void visitRepresentation(RepresentationDescriptor representationDescriptor) {
+                                   currentRepresentation = representationDescriptor;
                                    jsonSchemaFound = false;
                                }
 
@@ -55,7 +55,7 @@ public class JsonSchemaScanner {
                                }
 
                                @Override
-                               public void endVisitRepresentation(RepresentationElement representationElement) {
+                               public void endVisitRepresentation(RepresentationDescriptor representationDescriptor) {
                                    currentRepresentation = null;
                                }
                            }
