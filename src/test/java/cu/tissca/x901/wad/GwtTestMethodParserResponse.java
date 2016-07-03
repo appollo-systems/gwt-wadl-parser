@@ -12,7 +12,7 @@ import org.junit.Test;
  */
 public class GwtTestMethodParserResponse extends GWTTestCase {
 
-    static String SAMPLE_RESPONSE = "<ns2:response\n" +
+    static String SAMPLE_RESPONSE = "<ns2:response xmlns:ns2=\"http://wadl.dev.java.net/2009/02\"\n" +
             "        status=\"200\">\n" +
             "    <ns2:doc><![CDATA[a set of worklogs id and update time.]]></ns2:doc>\n" +
             "    <ns2:representation\n" +
@@ -76,6 +76,6 @@ public class GwtTestMethodParserResponse extends GWTTestCase {
 
     @Override
     public String getModuleName() {
-        return null;
+        return "cu.tissca.x901.wad.WadlParserTest";
     }
 }

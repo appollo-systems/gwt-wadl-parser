@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * @author ariel.viera@gmail.com (Ariel Viera)
  */
-public class RequestDescriptor extends AbstractDescriptor {
+public class RequestDescriptor extends AbstractDescriptor implements HasDocs {
     private List<ParamDescriptor> params;
     private List<DocElement> docs;
     private RepresentationDescriptor representation;
@@ -20,10 +20,12 @@ public class RequestDescriptor extends AbstractDescriptor {
         this.representation = representation;
     }
 
+    @Override
     public List<DocElement> getDocs() {
         return docs;
     }
 
+    @Override
     public void setDocs(List<DocElement> docs) {
         this.docs = docs;
     }

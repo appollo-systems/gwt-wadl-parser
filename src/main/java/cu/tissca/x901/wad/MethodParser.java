@@ -85,4 +85,8 @@ public class MethodParser extends AbstractParser {
         }
         return result;
     }
+
+    public ParamDescriptor parseParam(Element documentElement) {
+        throw new RuntimeException("Not implemented");
+    }
 }

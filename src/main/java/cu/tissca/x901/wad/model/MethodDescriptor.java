@@ -10,7 +10,7 @@ import java.util.List;
  *
  * @author ariel.viera@gmail.com (Ariel Viera)
  */
-public class MethodDescriptor extends AbstractDescriptor {
+public class MethodDescriptor extends AbstractDescriptor implements HasDocs {
 
     private String id;
     private String name;
@@ -36,6 +36,11 @@ public class MethodDescriptor extends AbstractDescriptor {
 
     public List<DocElement> getDocs() {
         return docs;
+    }
+
+    @Override
+    public void setDocs(List<DocElement> docs) {
+        this.docs = docs;
     }
 
 

@@ -6,6 +6,11 @@ import cu.tissca.x901.wad.Visitor;
  * @author ariel.viera@gmail.com (Ariel Viera)
  */
 public class ParamDescriptor extends AbstractDescriptor {
+    private String name;
+    private String style;
+    private String type;
+    private String _default;
+
     @Override
     public void accept(Visitor visitor){
         try {
@@ -13,5 +18,37 @@ public class ParamDescriptor extends AbstractDescriptor {
         } finally {
             visitor.endVisitParamDescriptor(this);
         }
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getStyle() {
+        return style;
+    }
+
+    public void setStyle(String style) {
+        this.style = style;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getDefault() {
+        return _default;
+    }
+
+    public void setDefault(String _default) {
+        this._default = _default;
     }
 }
