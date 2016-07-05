@@ -2,20 +2,23 @@ package cu.tissca.x901.wad.model;
 
 import cu.tissca.x901.wad.Visitor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * @author ariel.viera@gmail.com (Ariel Viera)
  */
-public class RequestDescriptor extends AbstractDescriptor implements HasDocs {
-    private List<ParamDescriptor> params;
-    private List<DocElement> docs;
+public class RequestDescriptor extends AbstractDescriptor implements HasDocs, HasRepresentation {
+    private List<ParamDescriptor> params = new ArrayList<>();
+    private List<DocElement> docs = new ArrayList<>();
     private RepresentationDescriptor representation;
 
+    @Override
     public RepresentationDescriptor getRepresentation() {
         return representation;
     }
 
+    @Override
     public void setRepresentation(RepresentationDescriptor representation) {
         this.representation = representation;
     }

@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * @author ariel.viera@gmail.com (Ariel Viera)
  */
-public class ResponseDescriptor extends AbstractDescriptor implements HasDocs {
+public class ResponseDescriptor extends AbstractDescriptor implements HasDocs, HasRepresentation {
     private RepresentationDescriptor representation;
     private List<DocElement> docs = new ArrayList<>();
 

@@ -20,15 +20,11 @@ public class XmlUtilsImpl {
 
     public NodeList getChildElementsByTagName(final Element node, String tagName){
         final List<Node> nodes = new ArrayList<>();
-        NodeList childNodes = node.getChildNodes();
+        NodeList childNodes = node.getElementsByTagName(tagName);
         for(int i=0;i<childNodes.getLength();i++){
             Node item = childNodes.item(i);
-            if(item instanceof Element){
-                Element elementItem = (Element) item;
-                if(elementItem.getTagName().equals(tagName)){
-                    nodes.add(elementItem);
-                }
-            }
+            if(item.getParentNode().equals(node))
+                nodes.add(item);
         }
         return new NodeList() {
             @Override

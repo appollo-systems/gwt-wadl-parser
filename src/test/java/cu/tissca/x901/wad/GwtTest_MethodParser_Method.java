@@ -84,7 +84,7 @@ public class GwtTest_MethodParser_Method extends GWTTestCase {
         assertEquals(method.getName(), "GET");
         assertNotNull(method.getRequestDescriptor());
         assertNotNull(method.getResponseDescriptor());
-        assertTrue(method.getDocs().get(0).toString().contains("Returns worklogs"));
+        assertTrue(method.getDocs().get(0).getElement().toString().contains("Returns worklogs"));
     }
 
     @Override

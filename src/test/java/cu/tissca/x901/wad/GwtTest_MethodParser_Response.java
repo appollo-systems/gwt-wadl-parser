@@ -48,15 +48,15 @@ public class GwtTest_MethodParser_Response extends GWTTestCase {
             "</ns2:response>\n";
 
     @Test
-    public void test_response_docs() {
+    public void test_response_docs() throws MalformedWadlException {
         MethodParser parser = new MethodParser("ns2");
         Element responseElement = XMLParser.parse(SAMPLE_RESPONSE).getDocumentElement();
         ResponseDescriptor responseDescriptor = parser.parseResponse(responseElement);
-        assertTrue(responseDescriptor.getDocs().get(0).toString().contains("a set of worklogs id and update time"));
+        assertTrue(responseDescriptor.getDocs().get(0).getElement().toString().contains("a set of worklogs id and update time"));
     }
 
     @Test
-    public void test_response_status() {
+    public void test_response_status() throws MalformedWadlException {
         MethodParser parser = new MethodParser("ns2");
         Element responseElement = XMLParser.parse(SAMPLE_RESPONSE).getDocumentElement();
         ResponseDescriptor responseDescriptor = parser.parseResponse(responseElement);
@@ -64,7 +64,7 @@ public class GwtTest_MethodParser_Response extends GWTTestCase {
     }
 
     @Test
-    public void test_response_representation() {
+    public void test_response_representation() throws MalformedWadlException {
         Document responseDocument = XMLParser.parse(SAMPLE_RESPONSE);
         MethodParser wadlParser = new MethodParser("ns2");
         ResponseDescriptor responseDescriptor = wadlParser.parseResponse(responseDocument.getDocumentElement());

@@ -20,7 +20,8 @@ public abstract class AbstractParser {
     }
 
     protected String tagName(String tag) {
-        return wadlPrefix + ":" + tag;
+        return tag;
+//        return wadlPrefix + ":" + tag;
     }
 
     public void setWadlPrefix(String wadlPrefix) {

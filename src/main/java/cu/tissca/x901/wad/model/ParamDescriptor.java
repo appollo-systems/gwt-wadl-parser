@@ -2,6 +2,7 @@ package cu.tissca.x901.wad.model;
 
 import cu.tissca.x901.wad.Visitor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -12,7 +13,7 @@ public class ParamDescriptor extends AbstractDescriptor implements HasDocs {
     private String style;
     private String type;
     private String _default;
-    private List<DocElement> docs;
+    private List<DocElement> docs = new ArrayList<>();
 
     @Override
     public void accept(Visitor visitor){
