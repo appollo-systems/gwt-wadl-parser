@@ -1,17 +1,24 @@
 package cu.tissca.x901.wad;
 
+import com.google.common.base.Predicates;
 import com.google.gwt.junit.client.GWTTestCase;
 import com.google.gwt.xml.client.Document;
 import com.google.gwt.xml.client.XMLParser;
 import cu.tissca.x901.wad.model.MethodDescriptor;
 import cu.tissca.x901.wad.model.ParamDescriptor;
 import cu.tissca.x901.wad.xmlutils.NsHelper;
+import org.hamcrest.CoreMatchers;
+import org.hamcrest.MatcherAssert;
 import org.junit.Test;
+
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
  * Created by avd on 2016-06-17.
  */
-public class GwtTestMethodParser extends GWTTestCase {
+public class GwtTest_MethodParser_Method extends GWTTestCase {
 
     private static String SAMPLE_METHOD =
             "                <ns2:method xmlns:ns2=\"http://wadl.dev.java.net/2009/02\"\n" +
@@ -64,74 +71,20 @@ public class GwtTestMethodParser extends GWTTestCase {
                     "                    </ns2:response>\n" +
                     "                </ns2:method>";
 
-    private static String SAMPLE_PARAM =
-            "                        <ns2:param xmlns:ns2=\"http://wadl.dev.java.net/2009/02\"\n" +
-                    "                                name=\"since\" style=\"query\" type=\"xs:long\"\n" +
-                    "                                default=\"0\"\n" +
-                    "                                xmlns:xs=\"http://www.w3.org/2001/XMLSchema\">\n" +
-                    "                            <ns2:doc>\n" +
-                    "                                <![CDATA[a date time in unix timestamp format since when updated worklogs will be returned.]]></ns2:doc>\n" +
-                    "                        </ns2:param>\n";
 
-    private static final String SAMPLE_REQUEST =
-            "                    <ns2:request xmlns:ns2=\"http://wadl.dev.java.net/2009/02\">\n" +
-                    "                        <ns2:param\n" +
-                    "                                name=\"since\" style=\"query\" type=\"xs:long\"\n" +
-                    "                                default=\"0\"\n" +
-                    "                                xmlns:xs=\"http://www.w3.org/2001/XMLSchema\">\n" +
-                    "                            <ns2:doc>\n" +
-                    "                                <![CDATA[a date time in unix timestamp format since when updated worklogs will be returned.]]></ns2:doc>\n" +
-                    "                        </ns2:param>\n" +
-                    "                    </ns2:request>\n";
+
+
 
     @Test
-    public void test_XmlUtils_detect_namespaces_on_sample_wadl() {
-        Document document = XMLParser.parse(TestResources.INSTANCE.jiraRestPluginWadl().getText());
-        assertTrue(NsHelper.hasNamespaces(document.getDocumentElement()));
-    }
-
-    @Test
-    public void test_XmlUtils_extracts_prefix_correctly() {
-        Document document = XMLParser.parse(TestResources.INSTANCE.jiraRestPluginWadl().getText());
-        assertEquals(NsHelper.getNamespacePrefix(document.getDocumentElement(), "http://wadl.dev.java.net/2009/02"), "ns2");
-    }
-
-    @Test
-    public void test_parseMethod_reads_doc() throws MalformedWadlException {
+    public void test_parseMethod() throws MalformedWadlException {
         MethodParser parser = new MethodParser("ns2");
         Document document = XMLParser.parse(SAMPLE_METHOD);
         MethodDescriptor method = parser.parseMethod(document.getDocumentElement());
         assertEquals(method.getId(), "getIdsOfWorklogsModifiedSince");
         assertEquals(method.getName(), "GET");
-        method.getDocs().get(0).toString().contains("Returns worklogs");
-    }
-
-    @Test
-    public void test_parseMethod_reads_request() throws MalformedWadlException {
-        MethodParser parser = new MethodParser("ns2");
-        Document document = XMLParser.parse(SAMPLE_METHOD);
-        MethodDescriptor method = parser.parseMethod(document.getDocumentElement());
         assertNotNull(method.getRequestDescriptor());
-    }
-
-    @Test
-    public static void test_parseMethod_reads_response() throws MalformedWadlException {
-        MethodParser parser = new MethodParser("ns2");
-        Document document = XMLParser.parse(SAMPLE_METHOD);
-        MethodDescriptor method = parser.parseMethod(document.getDocumentElement());
         assertNotNull(method.getResponseDescriptor());
-    }
-
-    @Test
-    public void test_parseRequest_reads_params() {
-        throw new RuntimeException("not implemented");
-    }
-
-    @Test
-    public void test_parseParam_reads_doc() {
-        MethodParser parser = new MethodParser("ns2");
-        Document document = XMLParser.parse(SAMPLE_PARAM);
-        ParamDescriptor paramDescriptor = parser.parseParam(document.getDocumentElement());
+        assertTrue(method.getDocs().get(0).toString().contains("Returns worklogs"));
     }
 
     @Override

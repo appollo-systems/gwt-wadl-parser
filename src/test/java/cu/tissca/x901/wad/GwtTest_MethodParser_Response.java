@@ -1,5 +1,6 @@
 package cu.tissca.x901.wad;
 
+import com.google.gwt.http.client.RequestBuilder;
 import com.google.gwt.junit.client.GWTTestCase;
 import com.google.gwt.xml.client.Document;
 import com.google.gwt.xml.client.Element;
@@ -10,7 +11,7 @@ import org.junit.Test;
 /**
  * @author ariel.viera@gmail.com (Ariel Viera)
  */
-public class GwtTestMethodParserResponse extends GWTTestCase {
+public class GwtTest_MethodParser_Response extends GWTTestCase {
 
     static String SAMPLE_RESPONSE = "<ns2:response xmlns:ns2=\"http://wadl.dev.java.net/2009/02\"\n" +
             "        status=\"200\">\n" +
@@ -48,30 +49,26 @@ public class GwtTestMethodParserResponse extends GWTTestCase {
 
     @Test
     public void test_response_docs() {
-        WadlParser parser = new WadlParser("ns2");
+        MethodParser parser = new MethodParser("ns2");
         Element responseElement = XMLParser.parse(SAMPLE_RESPONSE).getDocumentElement();
-        throw new RuntimeException("not implemented");
+        ResponseDescriptor responseDescriptor = parser.parseResponse(responseElement);
+        assertTrue(responseDescriptor.getDocs().get(0).toString().contains("a set of worklogs id and update time"));
     }
 
     @Test
     public void test_response_status() {
-        WadlParser parser = new WadlParser("ns2");
+        MethodParser parser = new MethodParser("ns2");
         Element responseElement = XMLParser.parse(SAMPLE_RESPONSE).getDocumentElement();
-        throw new RuntimeException("not implemented");
+        ResponseDescriptor responseDescriptor = parser.parseResponse(responseElement);
+        assertEquals(Integer.valueOf(200), responseDescriptor.getStatus());
     }
-
-
 
     @Test
     public void test_response_representation() {
         Document responseDocument = XMLParser.parse(SAMPLE_RESPONSE);
         MethodParser wadlParser = new MethodParser("ns2");
         ResponseDescriptor responseDescriptor = wadlParser.parseResponse(responseDocument.getDocumentElement());
-    }
-
-    @Test
-    public void test_response_representation_docs() {
-        throw new RuntimeException("not implemented");
+        assertTrue(responseDescriptor.getRepresentation()!=null);
     }
 
     @Override

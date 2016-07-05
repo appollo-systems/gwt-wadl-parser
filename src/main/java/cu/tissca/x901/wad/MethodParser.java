@@ -42,7 +42,7 @@ public class MethodParser extends AbstractParser {
         return result;
     }
 
-    private RequestDescriptor parseRequest(Element item1) {
+    RequestDescriptor parseRequest(Element item1) {
         return null;
     }
 

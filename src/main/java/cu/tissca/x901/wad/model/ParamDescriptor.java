@@ -2,14 +2,17 @@ package cu.tissca.x901.wad.model;
 
 import cu.tissca.x901.wad.Visitor;
 
+import java.util.List;
+
 /**
  * @author ariel.viera@gmail.com (Ariel Viera)
  */
-public class ParamDescriptor extends AbstractDescriptor {
+public class ParamDescriptor extends AbstractDescriptor implements HasDocs {
     private String name;
     private String style;
     private String type;
     private String _default;
+    private List<DocElement> docs;
 
     @Override
     public void accept(Visitor visitor){
@@ -50,5 +53,15 @@ public class ParamDescriptor extends AbstractDescriptor {
 
     public void setDefault(String _default) {
         this._default = _default;
+    }
+
+    @Override
+    public List<DocElement> getDocs() {
+        return this.docs;
+    }
+
+    @Override
+    public void setDocs(List<DocElement> value) {
+        this.docs = value;
     }
 }

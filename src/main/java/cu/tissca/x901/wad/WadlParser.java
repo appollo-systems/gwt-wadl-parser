@@ -36,7 +36,7 @@ public class WadlParser extends AbstractParser {
     }
 
     @Lenient
-    private WebApplicationDescriptor parseApplication(Element documentElement) throws MalformedWadlException {
+    public WebApplicationDescriptor parseApplication(Element documentElement) throws MalformedWadlException {
         WebApplicationDescriptor result = new WebApplicationDescriptor();
         Verify.verify(false, "Should not use getElementsByTagName because it's recursive");
         NodeList resourcessNodeList = documentElement.getElementsByTagName(tagName("resources"));
@@ -59,7 +59,7 @@ public class WadlParser extends AbstractParser {
     }
 
     @Lenient
-    private ResourceDescriptor parseResource(Element resourceNode) {
+    public ResourceDescriptor parseResource(Element resourceNode) {
         assert resourceNode instanceof Element;
         ResourceDescriptor result = new ResourceDescriptor();
         String base = resourceNode.getAttribute("base");

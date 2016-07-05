@@ -9,6 +9,7 @@ import cu.tissca.x901.wad.extensions.ExtendedProperties;
 import cu.tissca.x901.wad.extensions.JsonSchemaScanner;
 import cu.tissca.x901.wad.model.RepresentationDescriptor;
 import org.hamcrest.MatcherAssert;
+import org.junit.Assume;
 import org.junit.Test;
 
 import java.util.Map;
@@ -20,7 +21,7 @@ import static org.hamcrest.CoreMatchers.notNullValue;
 /**
  * @author ariel.viera@gmail.com (Ariel Viera)
  */
-public class GwtTestMethodParserResponseRepresentationSchemaInferenceHeuristic extends GWTTestCase {
+public class GwtTest_MethodParser_ResponseRepresentationSchemaInferenceHeuristic extends GWTTestCase {
 
     private static final String PARSED_SCHEMA = "{\n" +
             "    \"id\": \"https://docs.atlassian.com/jira/REST/schema/worklog-changed-since#\",\n" +
@@ -88,17 +89,6 @@ public class GwtTestMethodParserResponseRepresentationSchemaInferenceHeuristic e
 
 
     @Test
-    public void test_lookup_representation_schema(){
-        JsonSchemaScanner.LOGGER.setLevel(Level.OFF);
-        MethodParser parser = new MethodParser("ns2");
-        Element documentElement = XMLParser.parse(SAMPLE_REPRESENTATION).getDocumentElement();
-        RepresentationDescriptor representationDescriptor = parser.parseRepresentation(documentElement);
-        JsonSchemaScanner.scanAndPrepareJsonSchemas(representationDescriptor);
-        JsonObjectSchema jsonObjectSchema = (JsonObjectSchema) representationDescriptor.getExtendedProperties().get(ExtendedProperties.JSON_SCHEMA);
-        MatcherAssert.assertThat(jsonObjectSchema, is(notNullValue()));
-    }
-
-    @Test
     public void test_representation_schema_was_correctly_read(){
         JsonSchemaScanner.LOGGER.setLevel(Level.OFF);
         MethodParser parser = new MethodParser("ns2");
@@ -106,7 +96,7 @@ public class GwtTestMethodParserResponseRepresentationSchemaInferenceHeuristic e
         RepresentationDescriptor representationDescriptor = parser.parseRepresentation(documentElement);
         JsonSchemaScanner.scanAndPrepareJsonSchemas(representationDescriptor);
         JsonObjectSchema jsonObjectSchema = (JsonObjectSchema) representationDescriptor.getExtendedProperties().get(ExtendedProperties.JSON_SCHEMA);
-//        Assume.assumeThat(jsonObjectSchema, is(notNullValue())) ;
+        MatcherAssert.assertThat(jsonObjectSchema, is(notNullValue())) ;
         Map<String, JsonSchema> properties = jsonObjectSchema.getProperties();
         assertTrue(properties.containsKey("values"));
     }
