@@ -39,6 +39,6 @@ public class GwtTestNsHelper extends GWTTestCase {
 
     @Override
     public String getModuleName() {
-        return "cu.tissca.x901.wadl.WadlParser";
+        return "cu.tissca.x901.wad.WadlParser";
     }
 }
