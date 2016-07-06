@@ -21,6 +21,10 @@ public class JsonSchemaScanner {
 
     public static final Logger LOGGER = Logger.getLogger(JsonSchemaScanner.class.getName());
 
+    /**
+     * Scans for a JsonSchema and annotates the Representation element with it in its extended properties.
+     * @param descriptor
+     */
     public static void scanAndPrepareJsonSchemas(final Descriptor descriptor) {
         descriptor.accept(new VisitorAdapter() {
                                public RepresentationDescriptor currentRepresentation;
