@@ -142,6 +142,18 @@
             <!--</plugin>-->
         </plugins>
     </build>
+    <distributionManagement>
+        <repository>
+            <id>appollo-releases</id>
+            <name>appollo releases repository</name>
+            <url>http://appollo-bpm.com:8081/content/repositories/releases</url>
+        </repository>
+        <snapshotRepository>
+            <id>appollo-snapshots</id>
+            <name>appollo staging repo</name>
+            <url>http://appollo-bpm.com:8081/content/repositories/snapshots</url>
+        </snapshotRepository>
+    </distributionManagement>
     <properties>
         <maven.compiler.source>1.7</maven.compiler.source>
         <maven.compiler.target>1.7</maven.compiler.target>
